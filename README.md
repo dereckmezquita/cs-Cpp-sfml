@@ -71,4 +71,4 @@ open .
 
 Here you will find the following version `x.x.x`. An include folder, this holds the header files. 
 
-![/figures/sfml-location.png]()
+![](./figures/sfml-location.png)
