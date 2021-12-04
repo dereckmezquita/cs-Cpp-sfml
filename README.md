@@ -71,4 +71,7 @@ open .
 
 Here you will find the following version `x.x.x`. An include folder, this holds the header files. 
 
-![](./figures/sfml-location.png)
+<p align="center">
+    <img src="./figures/sfml-location.png" width="1000">
+</p>
+
