@@ -16,14 +16,14 @@ In order to see if our installation is working, I give you a small sample of cod
 int main() {
     sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar);
 
-	while (window.isOpen()) {
-		sf::Event evnt;
-		while (window.pollEvent(evnt)) {
-			if(evnt.type == evnt.Closed) {
-				window.close();
-			}
-		}
-	}
+    while (window.isOpen()) {
+        sf::Event evnt;
+        while (window.pollEvent(evnt)) {
+            if(evnt.type == evnt.Closed) {
+                window.close();
+            }
+        }
+    }
 
     return 0;
 }
@@ -61,26 +61,26 @@ ls $(brew --prefix)/Cellar/sfml
 ```
 
 ```
-boost			libmpc			pcre
-ca-certificates		libogg			pcre2
-cairo			libpng			pixman
-cmake			libpthread-stubs	pkg-config
-flac			libtiff			python@3.9
-fontconfig		libunistring		r
-freetype		libvorbis		readline
-gcc			libx11			sdl2
-gdbm			libxau			sfml
-gettext			libxcb			sqlite
-giflib			libxdmcp		tcl-tk
-glib			libxext			webp
-gmp			libxrender		wget
-htop			llvm			xorgproto
-icu4c			lzo			xz
-isl			mpdecimal		zlib
-jpeg			mpfr			zsh-syntax-highlighting
-libepoxy		ncurses			zstd
-libffi			openblas
-libidn2			openssl@1.1
+boost            libmpc            pcre
+ca-certificates        libogg            pcre2
+cairo            libpng            pixman
+cmake            libpthread-stubs    pkg-config
+flac            libtiff            python@3.9
+fontconfig        libunistring        r
+freetype        libvorbis        readline
+gcc            libx11            sdl2
+gdbm            libxau            sfml
+gettext            libxcb            sqlite
+giflib            libxdmcp        tcl-tk
+glib            libxext            webp
+gmp            libxrender        wget
+htop            llvm            xorgproto
+icu4c            lzo            xz
+isl            mpdecimal        zlib
+jpeg            mpfr            zsh-syntax-highlighting
+libepoxy        ncurses            zstd
+libffi            openblas
+libidn2            openssl@1.1
 ```
 
 Let's go there and explore to better understand what we will need.
@@ -147,15 +147,15 @@ In order to get started you need to create an object of type `RenderWindow` we c
 1. The constructor, we will use `sf::VideoMode()`; takes width and height.
 1. Title bar name.
 1. sfml styles: 
-		1. `sf::Style::Close` - allows the user to close the window.
-		1. `sf::Style::Default` - allows multiple other styles:
-			1. `Close`
-			1. `Resize`
-			1. `Titlebar`
-		1. `sf::Style::Fullscreen` - puts the window in fullscreen by default.
-		1. `sf::Style::None` - no window is opened.
-		1. `sf::Style::Resize` - allows the user to resize the window.
-		1. `sf::Style::Titlebar` - gives shows the title bar at the top.
+        1. `sf::Style::Close` - allows the user to close the window.
+        1. `sf::Style::Default` - allows multiple other styles:
+            1. `Close`
+            1. `Resize`
+            1. `Titlebar`
+        1. `sf::Style::Fullscreen` - puts the window in fullscreen by default.
+        1. `sf::Style::None` - no window is opened.
+        1. `sf::Style::Resize` - allows the user to resize the window.
+        1. `sf::Style::Titlebar` - gives shows the title bar at the top.
 
 You can pass multiple stlyes using the bitwise or operator `|`.
 
@@ -169,22 +169,22 @@ Note that we have to check ourselves for a `evnt.Closed` event.
 #include <SFML/Graphics.hpp>
 
 int main() {
-	// There are multiple styles in sf; you can pass multiple using a bitwise |
-	// This will allow the user to close the window and a title bar
-	sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar);
-	
-	// while the window is open
-	while (window.isOpen()) {
-		sf::Event evnt;
-		// allows the user to move the window
-		while (window.pollEvent(evnt)) {
-			if(evnt.type == evnt.Closed) {
-				window.close();
-			}
-		}
-	}
+    // There are multiple styles in sf; you can pass multiple using a bitwise |
+    // This will allow the user to close the window and a title bar
+    sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar);
+    
+    // while the window is open
+    while (window.isOpen()) {
+        sf::Event evnt;
+        // allows the user to move the window
+        while (window.pollEvent(evnt)) {
+            if(evnt.type == evnt.Closed) {
+                window.close();
+            }
+        }
+    }
 
-	return 0;
+    return 0;
 }
 ```
 <p align="center">
@@ -204,30 +204,30 @@ Let's print out the size of the window to the console. You can write a switch st
 #include <SFML/Graphics.hpp>
 
 int main() {
-	// There are multiple styles in sf; you can pass multiple using a bitwise |
-	// This will allow the user to close the window and a title bar
-	sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
-	
-	// while the window is open
-	while (window.isOpen()) {
-		sf::Event evnt;
-		// allows the user to move the window
-		while (window.pollEvent(evnt)) {
-			switch (evnt.type) {
-				case sf::Event::Closed:
-					window.close();
-					break;
-				case sf::Event::Resized:
-					std::cout << evnt.size.width << "x" << evnt.size.height << std::endl;
-					break;
-					
-				default:
-					break;
-			}
-		}
-	}
+    // There are multiple styles in sf; you can pass multiple using a bitwise |
+    // This will allow the user to close the window and a title bar
+    sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
+    
+    // while the window is open
+    while (window.isOpen()) {
+        sf::Event evnt;
+        // allows the user to move the window
+        while (window.pollEvent(evnt)) {
+            switch (evnt.type) {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                case sf::Event::Resized:
+                    std::cout << evnt.size.width << "x" << evnt.size.height << std::endl;
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }
 
-	return 0;
+    return 0;
 }
 ```
 
@@ -244,34 +244,34 @@ Let's start by getting text from the user. In order to this we can use built in 
 #include <SFML/Graphics.hpp>
 
 int main() {
-	// There are multiple styles in sf; you can pass multiple using a bitwise |
-	// This will allow the user to close the window and a title bar
-	sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
-	
-	// while the window is open
-	while (window.isOpen()) {
-		sf::Event evnt;
-		// allows the user to move the window
-		while (window.pollEvent(evnt)) {
-			switch (evnt.type) {
-				case sf::Event::Closed:
-					window.close();
-					break;
-				case sf::Event::Resized:
-					std::cout << evnt.size.width << "x" << evnt.size.height << std::endl;
-					break;
-				case sf::Event::TextEntered:
-					if(evnt.text.unicode < 128) {
-//						printf("%c", evnt.text.unicode);
-						std::cout << (char) evnt.text.unicode;
-					}
-					break;
-				default:
-					break;
-			}
-		}
-	}
+    // There are multiple styles in sf; you can pass multiple using a bitwise |
+    // This will allow the user to close the window and a title bar
+    sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
+    
+    // while the window is open
+    while (window.isOpen()) {
+        sf::Event evnt;
+        // allows the user to move the window
+        while (window.pollEvent(evnt)) {
+            switch (evnt.type) {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                case sf::Event::Resized:
+                    std::cout << evnt.size.width << "x" << evnt.size.height << std::endl;
+                    break;
+                case sf::Event::TextEntered:
+                    if(evnt.text.unicode < 128) {
+                        // printf("%c", evnt.text.unicode);
+                        std::cout << (char) evnt.text.unicode;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
-	return 0;
+    return 0;
 }
 ```
