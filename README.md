@@ -139,3 +139,139 @@ As you can see under "Signing & Capabilities" check "Disable Library Validation"
 <p align="center">
     <img src="./figures/sfml-hello-world.png" width="100%">
 </p>
+
+## Opening a window
+
+In order to get started you need to create an object of type `RenderWindow` we call it `window`. We need to pass three separate things to the `window` object:
+
+1. The constructor, we will use `sf::VideoMode()`; takes width and height.
+1. Title bar name.
+1. sfml styles: 
+		1. `sf::Style::Close` - allows the user to close the window.
+		1. `sf::Style::Default` - allows multiple other styles:
+			1. `Close`
+			1. `Resize`
+			1. `Titlebar`
+		1. `sf::Style::Fullscreen` - puts the window in fullscreen by default.
+		1. `sf::Style::None` - no window is opened.
+		1. `sf::Style::Resize` - allows the user to resize the window.
+		1. `sf::Style::Titlebar` - gives shows the title bar at the top.
+
+You can pass multiple stlyes using the bitwise or operator `|`.
+
+`sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar);`
+
+If you write only this line for the window, you will not get a window. We now need a game loop and another while loop that checks for window events.
+
+Note that we have to check ourselves for a `evnt.Closed` event.
+
+```Cpp
+#include <SFML/Graphics.hpp>
+
+int main() {
+	// There are multiple styles in sf; you can pass multiple using a bitwise |
+	// This will allow the user to close the window and a title bar
+	sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar);
+	
+	// while the window is open
+	while (window.isOpen()) {
+		sf::Event evnt;
+		// allows the user to move the window
+		while (window.pollEvent(evnt)) {
+			if(evnt.type == evnt.Closed) {
+				window.close();
+			}
+		}
+	}
+
+	return 0;
+}
+```
+<p align="center">
+    <img src="./figures/first-render-window.png" width="100%">
+</p>
+
+## Window events
+
+Here we will cover the different events that we have for a window. It might seem weird that we would have to check ourselves in our code for a close event. This makes sense if you think about it, this allows us to do something like prompt the user before closing, and or save the game.
+
+Let's use the code from before, but we will add another window event. Here we will listen for other events. We will use a switch statement instead to cover all the other mutliple events we could have.
+
+Let's print out the size of the window to the console. You can write a switch statement which covers the resize event: `sf::Event::Resized`.
+
+```Cpp
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
+int main() {
+	// There are multiple styles in sf; you can pass multiple using a bitwise |
+	// This will allow the user to close the window and a title bar
+	sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
+	
+	// while the window is open
+	while (window.isOpen()) {
+		sf::Event evnt;
+		// allows the user to move the window
+		while (window.pollEvent(evnt)) {
+			switch (evnt.type) {
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::Resized:
+					std::cout << evnt.size.width << "x" << evnt.size.height << std::endl;
+					break;
+					
+				default:
+					break;
+			}
+		}
+	}
+
+	return 0;
+}
+```
+
+<p align="center">
+    <img src="./figures/events-resize.png" width="100%">
+</p>
+
+## User input
+
+Let's start by getting text from the user. In order to this we can use built in funcitonality. Use the event `sf::Event::TextEntered` as a case in the switch statment from before. 
+
+```Cpp
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
+int main() {
+	// There are multiple styles in sf; you can pass multiple using a bitwise |
+	// This will allow the user to close the window and a title bar
+	sf::RenderWindow window(sf::VideoMode(512, 512), "Hello world!", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
+	
+	// while the window is open
+	while (window.isOpen()) {
+		sf::Event evnt;
+		// allows the user to move the window
+		while (window.pollEvent(evnt)) {
+			switch (evnt.type) {
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::Resized:
+					std::cout << evnt.size.width << "x" << evnt.size.height << std::endl;
+					break;
+				case sf::Event::TextEntered:
+					if(evnt.text.unicode < 128) {
+//						printf("%c", evnt.text.unicode);
+						std::cout << (char) evnt.text.unicode;
+					}
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+	return 0;
+}
+```
